@@ -31,7 +31,7 @@ const GameStage = () => {
     return availableHands[randomNumber]
   }
 
-  const winnerAnnounce = (yourHand, computerHand) => {
+  const winCondition = (yourHand, computerHand) => {
     if (yourHand.value === 3 && computerHand.value === 1) {
       return "YOU LOSE"
     }
@@ -44,6 +44,11 @@ const GameStage = () => {
     return yourHand.value > computerHand.value ? "YOU WIN" : "YOU LOSE"
   }
 
+  const asyncSetComputerHand = () => {
+    return new Promise((resolve) => {
+      resolve(setComputerHand(randomizeHand()))
+    })
+  }
   return (
     <div
       style={{
@@ -68,11 +73,12 @@ const GameStage = () => {
       <div style={{ gridArea: "3/2/span 1/span 1" }}>
         <button
           onClick={() => {
-            setComputerHand(randomizeHand())
-            setWinner(winnerAnnounce(yourHand, computerHand))
+            asyncSetComputerHand().then(
+              setWinner(winCondition(yourHand, computerHand))
+            )
           }}
         >
-          BATTLE
+          Battle
         </button>
       </div>
       <WinnerTag winner={winner}></WinnerTag>
