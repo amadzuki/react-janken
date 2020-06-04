@@ -3,23 +3,7 @@ import React, { useState, useEffect } from "react"
 import Player from "./Player"
 import WinnerTag from "./WinnerTag"
 
-const availableHands = [
-  {
-    name: "Rock",
-    sign: "✊",
-    value: 1,
-  },
-  {
-    name: "Paper",
-    sign: "✋",
-    value: 2,
-  },
-  {
-    name: "Scissor",
-    sign: "✌",
-    value: 3,
-  },
-]
+import availableHands from '../data/availableHands.json'
 
 const GameStage = () => {
   const [yourHand, setYourHand] = useState({ sign: "👤" })
@@ -48,8 +32,7 @@ const GameStage = () => {
   }
 
 useEffect(()=>{
-  const jankenResult =  battleResult(yourHand,computerHand)
-  setWinner(jankenResult)},[yourHand, computerHand])
+  setWinner(battleResult(yourHand,computerHand))},[yourHand, computerHand])
   
   return (
     <div

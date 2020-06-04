@@ -1,0 +1,17 @@
+[
+    {
+      "name": "Rock",
+      "sign": "✊",
+      "value": 1
+    },
+    {
+      "name": "Paper",
+      "sign": "✋",
+      "value": 2
+    },
+    {
+      "name": "Scissor",
+      "sign": "✌",
+      "value": 3
+    }
+  ]
