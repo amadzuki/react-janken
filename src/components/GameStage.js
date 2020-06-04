@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 
 import Player from "./Player"
 import WinnerTag from "./WinnerTag"
@@ -31,7 +31,10 @@ const GameStage = () => {
     return availableHands[randomNumber]
   }
 
-  const winCondition = (yourHand, computerHand) => {
+  const battleResult = (yourHand, computerHand) => {
+    if(yourHand.value === undefined || computerHand.value === undefined){
+      return ''
+    }
     if (yourHand.value === 3 && computerHand.value === 1) {
       return "YOU LOSE"
     }
@@ -44,11 +47,10 @@ const GameStage = () => {
     return yourHand.value > computerHand.value ? "YOU WIN" : "YOU LOSE"
   }
 
-  const asyncSetComputerHand = () => {
-    return new Promise((resolve) => {
-      resolve(setComputerHand(randomizeHand()))
-    })
-  }
+useEffect(()=>{
+  const jankenResult =  battleResult(yourHand,computerHand)
+  setWinner(jankenResult)},[yourHand, computerHand])
+  
   return (
     <div
       style={{
@@ -73,9 +75,8 @@ const GameStage = () => {
       <div style={{ gridArea: "3/2/span 1/span 1" }}>
         <button
           onClick={() => {
-            asyncSetComputerHand().then(
-              setWinner(winCondition(yourHand, computerHand))
-            )
+           const computerRandomHand =  randomizeHand()
+           setComputerHand(computerRandomHand)
           }}
         >
           Battle
